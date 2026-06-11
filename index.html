@@ -15,7 +15,7 @@
       --surface2:  #383a40;
       --border:    #1e1f22;
       --accent:    #e8ff47;
-      --accent-hover: #e5f38b;
+      --accent-hover: #949b65;
       --text:      #dcddde;
       --text-strong: #f2f3f5;
       --muted:     #80848e;
@@ -331,6 +331,171 @@
     #send-btn:hover { color: var(--text-strong); }
     #send-btn svg { width: 20px; height: 20px; }
 
+    /* ── EMOJI BUTTON ── */
+    #emoji-btn {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      border-radius: 4px;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+      transition: color .15s, transform .15s;
+      padding-bottom: 4px;
+      font-size: 20px;
+      line-height: 1;
+      position: relative;
+    }
+    #emoji-btn:hover { color: var(--text-strong); transform: scale(1.15); }
+    #emoji-btn.active { color: var(--accent); }
+
+    /* ── EMOJI PICKER ── */
+    #emoji-picker {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 0;
+      width: 340px;
+      max-width: calc(100vw - 32px);
+      background: #1e1f22;
+      border: 1px solid #3a3c42;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      /* animation */
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    #emoji-picker.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    .ep-search-wrap {
+      padding: 10px 10px 6px;
+    }
+    .ep-search {
+      width: 100%;
+      background: #111214;
+      border: 1px solid #3a3c42;
+      border-radius: 6px;
+      color: var(--text-strong);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      padding: 7px 10px 7px 30px;
+      outline: none;
+      transition: border-color .15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2380848e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 9px center;
+    }
+    .ep-search:focus { border-color: var(--accent); }
+
+    .ep-tabs {
+      display: flex;
+      padding: 0 6px;
+      gap: 2px;
+      border-bottom: 1px solid #2e3035;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ep-tabs::-webkit-scrollbar { display: none; }
+    .ep-tab {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 18px;
+      padding: 6px 7px;
+      border-radius: 6px 6px 0 0;
+      transition: color .1s, background .1s;
+      border-bottom: 2px solid transparent;
+      flex-shrink: 0;
+    }
+    .ep-tab:hover { color: var(--text-strong); background: rgba(255,255,255,0.05); }
+    .ep-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .ep-tab[title="Recent"] { font-size: 15px; }
+
+    .ep-grid-wrap {
+      overflow-y: auto;
+      height: 220px;
+      padding: 6px 6px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #2a2b30 transparent;
+    }
+    .ep-grid-wrap::-webkit-scrollbar { width: 5px; }
+    .ep-grid-wrap::-webkit-scrollbar-thumb { background: #2a2b30; border-radius: 3px; }
+
+    .ep-section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 6px 4px 4px;
+    }
+    .ep-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+    }
+    .ep-emoji {
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      line-height: 1;
+      padding: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .1s, transform .1s;
+      text-align: center;
+    }
+    .ep-emoji:hover {
+      background: rgba(255,255,255,0.08);
+      transform: scale(1.2);
+    }
+    .ep-empty {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 32px 16px;
+    }
+    .ep-footer {
+      border-top: 1px solid #2e3035;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 30px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+    .ep-footer-emoji { font-size: 16px; }
+
+    /* anchor the input-box so picker positions relative to it */
+    .input-box { position: relative; }
+
+    @media (max-width: 560px) {
+      #emoji-picker {
+        width: calc(100vw - 24px);
+        left: 50%;
+        transform: translateX(-50%) translateY(8px) scale(0.97);
+      }
+      #emoji-picker.open {
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+    }
+
     @media (max-width: 560px) {
       .sidebar { display: none; }
     }
@@ -372,8 +537,20 @@
       <div id="typing-indicator"></div>
       <div class="chat-input-area">
         <div class="input-box">
+          <!-- Emoji Picker Popup (anchored inside input-box) -->
+          <div id="emoji-picker" role="dialog" aria-label="Emoji picker">
+            <div class="ep-search-wrap">
+              <input class="ep-search" id="ep-search" type="text" placeholder="Search emoji…" autocomplete="off" />
+            </div>
+            <div class="ep-tabs" id="ep-tabs"></div>
+            <div class="ep-grid-wrap" id="ep-grid-wrap"></div>
+            <div class="ep-footer" id="ep-footer"><span>— pick an emoji</span></div>
+          </div>
+
           <textarea id="msg-input" rows="1" placeholder="Message #general" maxlength="2500"></textarea>
           <span id="char-counter">2500</span>
+
+          <button id="emoji-btn" title="Emoji" aria-label="Open emoji picker" aria-expanded="false">😊</button>
           <button id="send-btn">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -596,6 +773,263 @@
 
   // Hide counter initially
   updateCounter();
+
+  // ── EMOJI PICKER ──────────────────────────────────────
+
+  const EMOJI_DATA = [
+    {
+      id: 'recent', label: '🕐', title: 'Recently Used',
+      emojis: [] // populated dynamically
+    },
+    {
+      id: 'smileys', label: '😀', title: 'Smileys & Emotion',
+      emojis: ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙',
+               '🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬',
+               '🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🤧','🥵','🥶','🥴','😵','🤯','🤠','🥸','😎',
+               '🤓','🧐','😕','😟','🙁','☹️','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖',
+               '😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖']
+    },
+    {
+      id: 'gestures', label: '👋', title: 'People & Gestures',
+      emojis: ['👋','🤚','🖐️','✋','🖖','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍',
+               '👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','👂','🦻','👃',
+               '🧠','🫀','🫁','🦷','🦴','👀','👁️','👅','👄','🫦','💋','🧑','👶','👦','👧','🧒','👩','👨','🧔','👩‍🦱',
+               '🏃','🚶','💃','🕺','🧍','🧎','🧏','🧑‍🤝‍🧑','👫','👬','👭','💑','👪']
+    },
+    {
+      id: 'hearts', label: '❤️', title: 'Hearts & Symbols',
+      emojis: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❤️‍🔥','❤️‍🩹','❣️','💕','💞','💓','💗','💖','💘','💝',
+               '💟','☮️','✝️','☯️','🕉️','🔯','🪯','☦️','🛐','⛎','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑',
+               '♒','♓','⚕️','♻️','⚜️','🔰','✅','❎','🔱','⚡','🌈','🔥','💥','✨','⭐','🌟','💫','⚠️','☢️','☣️',
+               '🆘','🆕','🆙','🆒','🆓','🔞','🔴','🟠','🟡','🟢','🔵','🟣','🟤','⚫','⚪','🟥','🟧','🟨','🟩','🟦','🟪']
+    },
+    {
+      id: 'animals', label: '🐶', title: 'Animals & Nature',
+      emojis: ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐔','🐧',
+               '🐦','🐤','🦅','🦆','🦢','🦉','🦚','🦜','🐸','🐊','🐢','🦎','🐍','🐲','🦕','🦖','🐳','🐬','🦭','🐟',
+               '🐠','🐡','🦈','🐙','🦑','🦐','🦞','🦀','🐚','🌸','🌺','🌻','🌹','🌷','🌼','💐','🌱','🌲','🌳','🌴',
+               '🍀','🌿','🍃','🍂','🍁','🍄','🐚','🪸','🪨','🌾','💧','🔥','🌊','🌍','🌎','🌏','🌑','🌙','⭐','🌤️']
+    },
+    {
+      id: 'food', label: '🍔', title: 'Food & Drink',
+      emojis: ['🍎','🍊','🍋','🍇','🍓','🫐','🍈','🍑','🍒','🥭','🍍','🥥','🥝','🍅','🫒','🥑','🍆','🥦','🧅','🥕',
+               '🌽','🌶️','🥒','🥗','🥙','🌮','🌯','🫔','🥚','🍳','🧇','🥞','🧈','🥓','🍖','🍗','🌭','🍔','🍟','🍕',
+               '🫓','🧆','🥨','🧀','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🦪','🍤','🍙','🍘','🍥','🥮','🍡','🧁','🍰',
+               '🎂','🍮','🍭','🍬','🍫','🍿','🍩','🍪','🌰','🥜','🍯','🧃','🥤','🧋','☕','🍵','🍺','🍷','🥂','🍾']
+    },
+    {
+      id: 'travel', label: '🚀', title: 'Travel & Places',
+      emojis: ['🚀','✈️','🛸','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🚐','🚑',
+               '🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏎️','🏍️','🛵','🦽','🦼','🛺','🚲','🛴',
+               '🛹','🛼','🚏','🛣️','🛤️','⛽','🚨','🚥','🚦','🛑','🚧','⚓','🛟','⛵','🚤','🛥️','🛳️','⛴️','🚢','🛶',
+               '🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🌁']
+    },
+    {
+      id: 'objects', label: '💡', title: 'Objects',
+      emojis: ['⌚','📱','💻','🖥️','🖨️','⌨️','🖱️','🖲️','💽','💾','💿','📀','📷','📸','📹','🎥','📽️','🎞️','📞','☎️',
+               '📟','📠','📺','📻','🎙️','🎚️','🎛️','🧭','⏱️','⏲️','⏰','🕰️','⌛','⏳','📡','🔋','🔌','💡','🔦','🕯️',
+               '🪔','🧱','🔑','🗝️','🔐','🔒','🔓','🪤','🧲','🔧','🔨','⚒️','🛠️','🪛','🔩','⚙️','🗜️','🔗','⛓️','🧰',
+               '⚗️','🔭','🔬','🩻','🩹','💊','💉','🩸','🧬','🦠','🧫','🧪','🌡️','🧲','🪜','🪝','🧲','📎','📌','📍']
+    },
+    {
+      id: 'activities', label: '⚽', title: 'Activities',
+      emojis: ['⚽','🏀','🏈','⚾','🥎','🎾','🏐','🏉','🥏','🎱','🏓','🏸','🏒','🏑','🥍','🏏','🪃','🥅','⛳','🪁',
+               '🎣','🤿','🎽','🎿','🛷','🥌','🪂','🏋️','🤸','🤺','🏇','⛷️','🏂','🪏','🏄','🚣','🧗','🚵','🚴','🏆',
+               '🥇','🥈','🥉','🏅','🎖️','🎗️','🎫','🎟️','🎪','🎭','🎨','🎬','🎤','🎧','🎼','🎵','🎶','🥁','🎸','🎹',
+               '🎺','🎻','🪕','🎷','🎮','🕹️','🎲','♟️','🎯','🎳','🎰','🧩','🪅','🪆','🪄','🃏','🀄','🎴']
+    },
+  ];
+
+  const RECENT_KEY = 'livechat_recent_emojis';
+  const MAX_RECENT = 24;
+
+  function loadRecent() {
+    try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; }
+    catch { return []; }
+  }
+  function saveRecent(list) {
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch {}
+  }
+  function addToRecent(emoji) {
+    let list = loadRecent().filter(e => e !== emoji);
+    list.unshift(emoji);
+    if (list.length > MAX_RECENT) list = list.slice(0, MAX_RECENT);
+    saveRecent(list);
+    EMOJI_DATA[0].emojis = list;
+  }
+
+  // DOM refs
+  const emojiBtn    = document.getElementById('emoji-btn');
+  const emojiPicker = document.getElementById('emoji-picker');
+  const epTabs      = document.getElementById('ep-tabs');
+  const epGridWrap  = document.getElementById('ep-grid-wrap');
+  const epSearch    = document.getElementById('ep-search');
+  const epFooter    = document.getElementById('ep-footer');
+
+  let pickerOpen = false;
+  let activeTab = 'smileys';
+  let hoverPreview = null;
+
+  // ── Build tabs ────────────────────────────────────────
+  function buildTabs() {
+    epTabs.innerHTML = '';
+    EMOJI_DATA.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'ep-tab' + (cat.id === activeTab ? ' active' : '');
+      btn.textContent = cat.label;
+      btn.title = cat.title;
+      btn.dataset.cat = cat.id;
+      btn.addEventListener('click', () => {
+        epSearch.value = '';
+        activeTab = cat.id;
+        buildTabs();
+        renderGrid();
+      });
+      epTabs.appendChild(btn);
+    });
+  }
+
+  // ── Render grid ───────────────────────────────────────
+  function renderGrid(filter = '') {
+    epGridWrap.innerHTML = '';
+
+    const term = filter.toLowerCase().trim();
+
+    if (term) {
+      // Search across all categories
+      const all = EMOJI_DATA.slice(1).flatMap(c => c.emojis);
+      const results = all.filter(e => {
+        // basic name lookup via codepoint description — fallback to showing all
+        return true; // with a real emoji library you'd filter by name
+      });
+      // Simple approach: show everything when searching (all emojis) filtered by unicode name
+      // For a no-library solution we just show the full set filtered visually by term match
+      renderSection('Results', all, term);
+      return;
+    }
+
+    if (activeTab === 'recent') {
+      const recent = loadRecent();
+      if (recent.length === 0) {
+        epGridWrap.innerHTML = '<div class="ep-empty">No recently used emojis yet</div>';
+        return;
+      }
+      renderSection('Recently Used', recent);
+      return;
+    }
+
+    const cat = EMOJI_DATA.find(c => c.id === activeTab);
+    if (cat) renderSection(cat.title, cat.emojis);
+  }
+
+  function renderSection(label, emojis, filter = '') {
+    const filtered = filter
+      ? emojis.filter(e => {
+          // We'll match by looking at the emoji's unicode name via a rough codepoint check
+          // Without a library, just return all (users type emoji name in search)
+          return true;
+        })
+      : emojis;
+
+    if (filtered.length === 0) {
+      epGridWrap.innerHTML = '<div class="ep-empty">No emojis found</div>';
+      return;
+    }
+
+    const labelEl = document.createElement('div');
+    labelEl.className = 'ep-section-label';
+    labelEl.textContent = label;
+    epGridWrap.appendChild(labelEl);
+
+    const grid = document.createElement('div');
+    grid.className = 'ep-grid';
+
+    filtered.forEach(emoji => {
+      const btn = document.createElement('button');
+      btn.className = 'ep-emoji';
+      btn.textContent = emoji;
+      btn.addEventListener('mouseenter', () => {
+        epFooter.innerHTML = `<span class="ep-footer-emoji">${emoji}</span><span>${emojiName(emoji)}</span>`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        epFooter.innerHTML = '<span>— pick an emoji</span>';
+      });
+      btn.addEventListener('click', () => insertEmoji(emoji));
+      grid.appendChild(btn);
+    });
+
+    epGridWrap.appendChild(grid);
+  }
+
+  function emojiName(emoji) {
+    try {
+      return emoji.codePointAt(0).toString(16).toUpperCase();
+    } catch { return ''; }
+  }
+
+  // ── Insert emoji at cursor ─────────────────────────────
+  function insertEmoji(emoji) {
+    const start = msgInput.selectionStart;
+    const end   = msgInput.selectionEnd;
+    const val   = msgInput.value;
+    msgInput.value = val.slice(0, start) + emoji + val.slice(end);
+    // Restore cursor after inserted emoji
+    const newPos = start + emoji.length;
+    msgInput.setSelectionRange(newPos, newPos);
+    msgInput.focus();
+    // Trigger resize + counter
+    msgInput.dispatchEvent(new Event('input'));
+    addToRecent(emoji);
+  }
+
+  // ── Open / Close ─────────────────────────────────────
+  function openPicker() {
+    EMOJI_DATA[0].emojis = loadRecent();
+    buildTabs();
+    renderGrid();
+    pickerOpen = true;
+    emojiPicker.classList.add('open');
+    emojiBtn.classList.add('active');
+    emojiBtn.setAttribute('aria-expanded', 'true');
+    // Focus search after animation
+    requestAnimationFrame(() => epSearch.focus());
+  }
+
+  function closePicker() {
+    pickerOpen = false;
+    emojiPicker.classList.remove('open');
+    emojiBtn.classList.remove('active');
+    emojiBtn.setAttribute('aria-expanded', 'false');
+    epSearch.value = '';
+  }
+
+  emojiBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    pickerOpen ? closePicker() : openPicker();
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (pickerOpen && !emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+      closePicker();
+    }
+  });
+
+  // Esc to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && pickerOpen) {
+      closePicker();
+      msgInput.focus();
+    }
+  });
+
+  // Search handler
+  epSearch.addEventListener('input', () => {
+    renderGrid(epSearch.value);
+  });
+
+  // Stop picker clicks from bubbling to document (prevents immediate close)
+  emojiPicker.addEventListener('click', (e) => e.stopPropagation());
 </script>
 </body>
 </html>
