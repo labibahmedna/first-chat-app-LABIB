@@ -194,14 +194,18 @@
     .user-avatar {
       width: 32px; height: 32px; border-radius: 50%;
       background: var(--accent); display: grid; place-items: center;
-      font-size: 13px; font-weight: 600; color: #fff;
+      font-size: 11px; font-weight: 700; color: #fff;
+      letter-spacing: 0.02em;
       flex-shrink: 0; position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      user-select: none;
     }
     .user-avatar::after {
       content: '';
       position: absolute; bottom: -1px; right: -1px;
       width: 10px; height: 10px; border-radius: 50%;
       background: #23a55a; border: 2px solid var(--surface);
+      box-shadow: 0 0 4px rgba(35,165,90,0.5);
     }
     .user-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 
@@ -221,7 +225,15 @@
     .msg-avatar {
       width: 40px; height: 40px; border-radius: 50%;
       background: var(--accent); display: grid; place-items: center;
-      font-size: 16px; font-weight: 600; color: #fff;
+      font-size: 13px; font-weight: 700; color: #fff;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      user-select: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .msg-avatar:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
     }
     .msg-avatar-spacer { width: 40px; height: 100%; }
 
@@ -463,15 +475,38 @@
     return isToday ? `Today at ${time}` : d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' at ' + time;
   }
 
-  function getInitial(name) {
-    return name.charAt(0).toUpperCase();
+
+  // ── AVATAR HELPERS (getInitials + avatarColor defined below) ─────────────
+
+  // Generate up to 2 initials from a username:
+  // "Labib Ahmed" → "LA", "cosmicray" → "CO", "x" → "X"
+  function getInitials(name) {
+    const parts = name.trim().split(/[\s_\-\.]+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    // Single word: take first two chars if available
+    return name.slice(0, 2).toUpperCase();
   }
 
-  // Simple color hash for avatars
-  const AVATAR_COLORS = ['#5865f2','#23a55a','#ed4245','#f0b232','#3ba55c','#eb459e','#5865f2'];
+  // Deterministic color from username — same user always gets same color
+  const AVATAR_COLORS = [
+    '#5865f2', // indigo
+    '#23a55a', // green
+    '#ed4245', // red
+    '#f0b232', // amber
+    '#eb459e', // pink
+    '#0ea5e9', // sky
+    '#a855f7', // purple
+    '#14b8a6', // teal
+    '#f97316', // orange
+    '#06b6d4', // cyan
+  ];
   function avatarColor(name) {
     let hash = 0;
-    for (let c of name) hash = (hash * 31 + c.charCodeAt(0)) & 0xffff;
+    for (let i = 0; i < name.length; i++) {
+      hash = (hash * 31 + name.charCodeAt(i)) & 0xffff;
+    }
     return AVATAR_COLORS[hash % AVATAR_COLORS.length];
   }
 
@@ -501,7 +536,7 @@
       const av = document.createElement('div');
       av.className = 'msg-avatar';
       av.style.background = avatarColor(username);
-      av.textContent = getInitial(username);
+      av.textContent = getInitials(username);
       avatarCol.appendChild(av);
     }
 
@@ -541,7 +576,7 @@
     if (onlineNum) onlineNum.textContent = users.length;
     userList.innerHTML = users.map(u =>
       `<div class="user-item">
-        <div class="user-avatar" style="background:${avatarColor(u)}">${getInitial(u)}</div>
+        <div class="user-avatar" style="background:${avatarColor(u)}">${getInitials(u)}</div>
         <div class="user-name">${u}</div>
       </div>`
     ).join('');
