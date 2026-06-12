@@ -15,13 +15,14 @@
       --surface2:  #383a40;
       --border:    #1e1f22;
       --accent:    #e8ff47;
-      --accent-hover: #949b65;
+      --accent-hover: #e5f38b;
       --text:      #dcddde;
       --text-strong: #f2f3f5;
       --muted:     #80848e;
       --radius:    8px;
       --font-ui:   'Noto Sans', 'gg sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --font-mono: 'DM Mono', 'Consolas', monospace;
+      --danger:    #ed4245;
     }
 
     body {
@@ -34,7 +35,6 @@
       overflow: hidden;
     }
 
-    /* ── Grain texture on messages area ── */
     #messages::before {
       content: '';
       position: fixed; inset: 0;
@@ -42,41 +42,24 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ── JOIN SCREEN ── */
     #join-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-      padding: 24px;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 32px; padding: 24px;
       background: var(--surface);
     }
-
-    .logo {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
+    .logo { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .logo-mark {
-      width: 80px; height: 80px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 40px;
+      width: 80px; height: 80px; background: var(--accent);
+      border-radius: 50%; display: grid; place-items: center; font-size: 40px;
     }
-    .logo h1 {
-      font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px;
-      color: var(--text-strong);
-    }
+    .logo h1 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text-strong); }
     .logo p { color: var(--muted); font-size: 0.9rem; font-family: var(--font-mono); }
 
     .join-card {
-      background: #1e1f22;
-      border-radius: 4px;
-      padding: 32px;
+      background: #1e1f22; border-radius: 4px; padding: 32px;
       width: 100%; max-width: 440px;
-      display: flex; flex-direction: column; gap: 16px;
-      text-align: center;
+      display: flex; flex-direction: column; gap: 16px; text-align: center;
     }
     .join-card h2 { font-size: 1.5rem; font-weight: 700; color: var(--text-strong); }
     .join-card p { font-size: 0.9rem; color: var(--muted); margin-top: -8px; }
@@ -86,49 +69,26 @@
       text-align: left; margin-bottom: -8px;
     }
     .join-card input {
-      background: #1a1b1e;
-      border: 1px solid #040405;
-      border-radius: 3px;
-      color: var(--text-strong);
-      font-family: var(--font-ui);
-      font-size: 1rem;
-      padding: 10px 12px;
-      outline: none;
-      transition: border-color .15s;
-      width: 100%;
+      background: #1a1b1e; border: 1px solid #040405; border-radius: 3px;
+      color: var(--text-strong); font-family: var(--font-ui); font-size: 1rem;
+      padding: 10px 12px; outline: none; transition: border-color .15s; width: 100%;
     }
     .join-card input:focus { border-color: var(--accent); }
     .btn-join {
-      background: var(--accent);
-      color: #fff;
-      border: none; border-radius: 3px;
+      background: var(--accent); color: #fff; border: none; border-radius: 3px;
       font-family: var(--font-ui); font-weight: 500; font-size: 1rem;
-      padding: 14px;
-      cursor: pointer;
-      transition: background .15s;
-      margin-top: 4px;
+      padding: 14px; cursor: pointer; transition: background .15s; margin-top: 4px;
     }
     .btn-join:hover { background: var(--accent-hover); }
 
-    /* ── CHAT LAYOUT ── */
-    #chat-screen {
-      display: none;
-      flex: 1;
-      flex-direction: column;
-      overflow: hidden;
-    }
+    #chat-screen { display: none; flex: 1; flex-direction: column; overflow: hidden; }
     #chat-screen.active { display: flex; }
 
-    /* Header */
     .chat-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 16px;
-      height: 48px;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
-      gap: 12px;
-      flex-shrink: 0;
-      box-shadow: 0 1px 0 rgba(4,4,5,0.2), 0 1.5px 0 rgba(6,6,7,0.05), 0 2px 0 rgba(4,4,5,0.05);
+      padding: 0 16px; height: 48px; border-bottom: 1px solid var(--border);
+      background: var(--bg); gap: 12px; flex-shrink: 0;
+      box-shadow: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
       position: relative; z-index: 10;
     }
     .header-left { display: flex; align-items: center; gap: 8px; }
@@ -137,46 +97,31 @@
     .header-divider { color: #3f4147; margin: 0 8px; }
     .header-sub { font-size: 13.5px; color: var(--muted); }
 
-    /* Online users pill */
     #online-count {
       font-family: var(--font-ui); font-size: 13px; font-weight: 500;
-      color: var(--muted);
-      display: flex; align-items: center; gap: 6px;
+      color: var(--muted); display: flex; align-items: center; gap: 6px;
     }
     #online-count::before {
-      content: '';
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #23a55a;
-      display: inline-block;
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: #23a55a; display: inline-block;
     }
 
-    /* Main area */
-    .chat-body {
-      display: flex; flex: 1; overflow: hidden;
-    }
+    .chat-body { display: flex; flex: 1; overflow: hidden; }
 
-    /* Messages */
     #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 0 8px;
+      flex: 1; overflow-y: auto; padding: 16px 0 8px;
       display: flex; flex-direction: column;
-      scroll-behavior: smooth;
-      position: relative;
+      scroll-behavior: smooth; position: relative;
     }
     #messages::-webkit-scrollbar { width: 8px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
     #messages::-webkit-scrollbar-thumb { background: #1a1b1e; border-radius: 4px; border: 2px solid var(--bg); }
 
-    /* Sidebar */
     .sidebar {
-      width: 240px;
-      border-left: 1px solid var(--border);
-      background: var(--surface);
-      padding: 16px 8px;
+      width: 240px; border-left: 1px solid var(--border);
+      background: var(--surface); padding: 16px 8px;
       display: flex; flex-direction: column; gap: 10px;
-      overflow-y: auto;
-      flex-shrink: 0;
+      overflow-y: auto; flex-shrink: 0;
     }
     .sidebar-title {
       font-family: var(--font-ui); font-size: 0.7rem; font-weight: 700;
@@ -195,74 +140,85 @@
       width: 32px; height: 32px; border-radius: 50%;
       background: var(--accent); display: grid; place-items: center;
       font-size: 11px; font-weight: 700; color: #fff;
-      letter-spacing: 0.02em;
-      flex-shrink: 0; position: relative;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      user-select: none;
+      letter-spacing: 0.02em; flex-shrink: 0; position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3); user-select: none;
     }
     .user-avatar::after {
-      content: '';
-      position: absolute; bottom: -1px; right: -1px;
+      content: ''; position: absolute; bottom: -1px; right: -1px;
       width: 10px; height: 10px; border-radius: 50%;
       background: #23a55a; border: 2px solid var(--surface);
       box-shadow: 0 0 4px rgba(35,165,90,0.5);
     }
     .user-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 
-    /* Message groups — Discord style */
+    /* ── Message groups ── */
     .msg-group {
-      display: flex;
-      padding: 2px 16px;
-      position: relative; z-index: 1;
-      transition: background .05s;
+      display: flex; padding: 2px 16px;
+      position: relative; z-index: 1; transition: background .05s;
     }
     .msg-group:hover { background: rgba(4,4,5,0.07); }
     .msg-group.first-in-group { padding-top: 16px; }
 
-    .msg-avatar-col {
-      width: 40px; flex-shrink: 0; margin-right: 16px;
-    }
+    .msg-avatar-col { width: 40px; flex-shrink: 0; margin-right: 16px; }
     .msg-avatar {
       width: 40px; height: 40px; border-radius: 50%;
       background: var(--accent); display: grid; place-items: center;
       font-size: 13px; font-weight: 700; color: #fff;
-      letter-spacing: 0.02em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-      user-select: none;
-      transition: transform .15s, box-shadow .15s;
+      letter-spacing: 0.02em; box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      user-select: none; transition: transform .15s, box-shadow .15s;
     }
-    .msg-avatar:hover {
-      transform: scale(1.08);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-    }
+    .msg-avatar:hover { transform: scale(1.08); box-shadow: 0 4px 14px rgba(0,0,0,0.5); }
     .msg-avatar-spacer { width: 40px; height: 100%; }
 
     .msg-content { flex: 1; min-width: 0; }
-    .msg-meta {
-      display: flex; align-items: baseline; gap: 8px;
-      margin-bottom: 2px;
-    }
+    .msg-meta { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
     .msg-author { font-size: 15px; font-weight: 600; color: var(--text-strong); }
     .msg-time { font-size: 11.5px; color: var(--muted); font-weight: 400; }
-    .msg-text {
-      font-size: 15px; line-height: 1.375; color: var(--text);
-      word-break: break-word;
+
+    /* msg-body: text + delete btn in a row */
+    .msg-body { display: flex; align-items: center; gap: 6px; }
+
+    .msg-text { font-size: 15px; line-height: 1.375; color: var(--text); word-break: break-word; }
+    .msg-text.deleted { color: var(--muted); font-style: italic; }
+
+    /* Own messages accent author */
+    .msg-group.own .msg-author { color: #5865f2; }
+
+    /* ── Delete button ── */
+    .msg-delete-btn {
+      display: none;
+      background: #1e1f22; border: 1px solid #3a3c42; border-radius: 5px;
+      color: var(--muted); cursor: pointer; padding: 3px 6px;
+      line-height: 1; flex-shrink: 0;
+      transition: color .15s, background .15s, transform .15s, box-shadow .15s;
+    }
+    .msg-delete-btn:hover {
+      color: var(--danger); background: rgba(237,66,69,0.12);
+      border-color: rgba(237,66,69,0.4);
+      transform: scale(1.1); box-shadow: 0 0 8px rgba(237,66,69,0.25);
+    }
+    .msg-delete-btn svg { width: 14px; height: 14px; display: block; }
+
+    /* Show delete button only on own messages while hovering the group */
+    .msg-group.own:hover .msg-delete-btn {
+      display: inline-flex; align-items: center; justify-content: center;
     }
 
-    /* Own messages same style but accent author color */
-    .msg-group.own .msg-author { color: #5865f2; }
+    /* ── Deletion animation ── */
+    @keyframes deleteFade {
+      0%   { opacity: 1; transform: translateX(0);   background: rgba(237,66,69,0); }
+      30%  { opacity: 1; transform: translateX(-3px); background: rgba(237,66,69,0.08); }
+      100% { opacity: 0.7; transform: translateX(0); background: rgba(237,66,69,0); }
+    }
+    .msg-group.deleting { animation: deleteFade .35s ease both; }
 
     /* System messages */
     .msg-system {
-      padding: 4px 72px;
-      font-size: 13.5px; color: var(--muted);
-      font-style: italic;
-      position: relative; z-index: 1;
-      display: flex; align-items: center; gap: 8px;
+      padding: 4px 72px; font-size: 13.5px; color: var(--muted); font-style: italic;
+      position: relative; z-index: 1; display: flex; align-items: center; gap: 8px;
     }
     .msg-system::before {
-      content: '';
-      display: inline-block; width: 20px; height: 1px;
+      content: ''; display: inline-block; width: 20px; height: 1px;
       background: var(--muted); opacity: 0.4; flex-shrink: 0;
     }
 
@@ -272,231 +228,152 @@
     }
     .msg-group, .msg-system { animation: msgIn .15s ease both; }
 
-    /* Typing indicator */
     #typing-indicator {
-      height: 24px; padding: 0 72px;
-      font-size: 13px; color: var(--muted);
-      font-weight: 500;
-      position: relative; z-index: 1;
+      height: 24px; padding: 0 72px; font-size: 13px; color: var(--muted);
+      font-weight: 500; position: relative; z-index: 1;
     }
 
-    /* Input area */
-    .chat-input-area {
-      padding: 0 16px 24px;
-      background: var(--bg);
-    }
+    .chat-input-area { padding: 0 16px 24px; background: var(--bg); }
     .input-box {
-      background: var(--surface2);
-      border-radius: 8px;
-      display: flex; align-items: flex-end;
-      padding: 0 16px;
-      gap: 8px;
+      background: var(--surface2); border-radius: 8px;
+      display: flex; align-items: flex-end; padding: 0 16px; gap: 8px;
+      position: relative;
     }
     #msg-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-strong);
-      font-family: var(--font-ui); font-size: 15px;
-      padding: 11px 0;
-      resize: none;
-      min-height: 44px; max-height: 120px;
-      outline: none;
-      line-height: 1.375;
+      flex: 1; background: transparent; border: none; color: var(--text-strong);
+      font-family: var(--font-ui); font-size: 15px; padding: 11px 0;
+      resize: none; min-height: 44px; max-height: 120px; outline: none; line-height: 1.375;
     }
     #msg-input::placeholder { color: #6d6f78; }
 
-    /* Character counter */
     #char-counter {
-      font-size: 11.5px; color: var(--muted);
-      font-family: var(--font-mono);
-      padding-bottom: 13px;
-      min-width: 48px; text-align: right;
-      flex-shrink: 0;
-      transition: color .2s;
+      font-size: 11.5px; color: var(--muted); font-family: var(--font-mono);
+      padding-bottom: 13px; min-width: 48px; text-align: right;
+      flex-shrink: 0; transition: color .2s;
     }
     #char-counter.warn { color: #faa61a; }
     #char-counter.danger { color: #ed4245; font-weight: 600; }
 
     #send-btn {
-      background: transparent; color: var(--muted);
-      border: none; border-radius: 4px;
-      width: 36px; height: 36px;
-      cursor: pointer;
-      display: grid; place-items: center;
-      flex-shrink: 0;
-      transition: color .15s;
-      padding-bottom: 4px;
+      background: transparent; color: var(--muted); border: none; border-radius: 4px;
+      width: 36px; height: 36px; cursor: pointer; display: grid; place-items: center;
+      flex-shrink: 0; transition: color .15s; padding-bottom: 4px;
     }
     #send-btn:hover { color: var(--text-strong); }
     #send-btn svg { width: 20px; height: 20px; }
 
-    /* ── EMOJI BUTTON ── */
     #emoji-btn {
-      background: transparent;
-      color: var(--muted);
-      border: none;
-      border-radius: 4px;
-      width: 36px; height: 36px;
-      cursor: pointer;
-      display: grid; place-items: center;
-      flex-shrink: 0;
-      transition: color .15s, transform .15s;
-      padding-bottom: 4px;
-      font-size: 20px;
-      line-height: 1;
-      position: relative;
+      background: transparent; color: var(--muted); border: none; border-radius: 4px;
+      width: 36px; height: 36px; cursor: pointer; display: grid; place-items: center;
+      flex-shrink: 0; transition: color .15s, transform .15s; padding-bottom: 4px;
+      font-size: 20px; line-height: 1; position: relative;
     }
     #emoji-btn:hover { color: var(--text-strong); transform: scale(1.15); }
     #emoji-btn.active { color: var(--accent); }
 
-    /* ── EMOJI PICKER ── */
     #emoji-picker {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 0;
-      width: 340px;
-      max-width: calc(100vw - 32px);
-      background: #1e1f22;
-      border: 1px solid #3a3c42;
-      border-radius: 12px;
+      position: absolute; bottom: calc(100% + 8px); left: 0;
+      width: 340px; max-width: calc(100vw - 32px);
+      background: #1e1f22; border: 1px solid #3a3c42; border-radius: 12px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      z-index: 100; display: flex; flex-direction: column; overflow: hidden;
+      opacity: 0; transform: translateY(8px) scale(0.97);
+      pointer-events: none; transition: opacity .18s ease, transform .18s ease;
+    }
+    #emoji-picker.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
 
-      /* animation */
-      opacity: 0;
-      transform: translateY(8px) scale(0.97);
-      pointer-events: none;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    #emoji-picker.open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: all;
-    }
-
-    .ep-search-wrap {
-      padding: 10px 10px 6px;
-    }
+    .ep-search-wrap { padding: 10px 10px 6px; }
     .ep-search {
-      width: 100%;
-      background: #111214;
-      border: 1px solid #3a3c42;
-      border-radius: 6px;
-      color: var(--text-strong);
-      font-family: var(--font-ui);
-      font-size: 13px;
-      padding: 7px 10px 7px 30px;
-      outline: none;
-      transition: border-color .15s;
+      width: 100%; background: #111214; border: 1px solid #3a3c42; border-radius: 6px;
+      color: var(--text-strong); font-family: var(--font-ui); font-size: 13px;
+      padding: 7px 10px 7px 30px; outline: none; transition: border-color .15s;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2380848e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 9px center;
+      background-repeat: no-repeat; background-position: 9px center;
     }
     .ep-search:focus { border-color: var(--accent); }
 
     .ep-tabs {
-      display: flex;
-      padding: 0 6px;
-      gap: 2px;
-      border-bottom: 1px solid #2e3035;
-      overflow-x: auto;
-      scrollbar-width: none;
+      display: flex; padding: 0 6px; gap: 2px;
+      border-bottom: 1px solid #2e3035; overflow-x: auto; scrollbar-width: none;
     }
     .ep-tabs::-webkit-scrollbar { display: none; }
     .ep-tab {
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 18px;
-      padding: 6px 7px;
-      border-radius: 6px 6px 0 0;
-      transition: color .1s, background .1s;
-      border-bottom: 2px solid transparent;
-      flex-shrink: 0;
+      background: transparent; border: none; color: var(--muted); cursor: pointer;
+      font-size: 18px; padding: 6px 7px; border-radius: 6px 6px 0 0;
+      transition: color .1s, background .1s; border-bottom: 2px solid transparent; flex-shrink: 0;
     }
     .ep-tab:hover { color: var(--text-strong); background: rgba(255,255,255,0.05); }
-    .ep-tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
+    .ep-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
     .ep-tab[title="Recent"] { font-size: 15px; }
 
     .ep-grid-wrap {
-      overflow-y: auto;
-      height: 220px;
-      padding: 6px 6px 10px;
-      scrollbar-width: thin;
-      scrollbar-color: #2a2b30 transparent;
+      overflow-y: auto; height: 220px; padding: 6px 6px 10px;
+      scrollbar-width: thin; scrollbar-color: #2a2b30 transparent;
     }
     .ep-grid-wrap::-webkit-scrollbar { width: 5px; }
     .ep-grid-wrap::-webkit-scrollbar-thumb { background: #2a2b30; border-radius: 3px; }
 
     .ep-section-label {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: 6px 4px 4px;
+      font-size: 10.5px; font-weight: 700; color: var(--muted);
+      letter-spacing: .06em; text-transform: uppercase; padding: 6px 4px 4px;
     }
-    .ep-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-    }
+    .ep-grid { display: grid; grid-template-columns: repeat(8, 1fr); }
     .ep-emoji {
-      background: transparent;
-      border: none;
-      font-size: 22px;
-      line-height: 1;
-      padding: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background .1s, transform .1s;
-      text-align: center;
+      background: transparent; border: none; font-size: 22px; line-height: 1;
+      padding: 5px; border-radius: 6px; cursor: pointer;
+      transition: background .1s, transform .1s; text-align: center;
     }
-    .ep-emoji:hover {
-      background: rgba(255,255,255,0.08);
-      transform: scale(1.2);
-    }
-    .ep-empty {
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-      padding: 32px 16px;
-    }
+    .ep-emoji:hover { background: rgba(255,255,255,0.08); transform: scale(1.2); }
+    .ep-empty { color: var(--muted); font-size: 13px; text-align: center; padding: 32px 16px; }
     .ep-footer {
-      border-top: 1px solid #2e3035;
-      padding: 6px 10px;
-      font-size: 12px;
-      color: var(--muted);
-      min-height: 30px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
+      border-top: 1px solid #2e3035; padding: 6px 10px; font-size: 12px;
+      color: var(--muted); min-height: 30px; display: flex; align-items: center;
+      gap: 6px; font-family: var(--font-mono);
     }
     .ep-footer-emoji { font-size: 16px; }
 
-    /* anchor the input-box so picker positions relative to it */
-    .input-box { position: relative; }
+    /* ── DELETE CONFIRMATION MODAL ── */
+    #delete-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 200; display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+    #delete-modal-overlay.open { display: flex; animation: fadeOverlay .15s ease; }
+    @keyframes fadeOverlay { from { opacity: 0; } to { opacity: 1; } }
+
+    #delete-modal {
+      background: #1e1f22; border: 1px solid #3a3c42; border-radius: 12px;
+      padding: 24px 28px; max-width: 380px; width: 90%;
+      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+      animation: slideModal .18s ease;
+    }
+    @keyframes slideModal {
+      from { opacity: 0; transform: scale(0.93) translateY(-8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #delete-modal h3 { font-size: 1rem; font-weight: 700; color: var(--text-strong); }
+    #delete-modal p  { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+    .btn-cancel {
+      background: var(--surface2); color: var(--text); border: none; border-radius: 4px;
+      padding: 9px 18px; font-family: var(--font-ui); font-size: 0.9rem;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-cancel:hover { background: #43454c; }
+    .btn-delete-confirm {
+      background: var(--danger); color: #fff; border: none; border-radius: 4px;
+      padding: 9px 18px; font-family: var(--font-ui); font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; transition: background .15s, box-shadow .15s;
+    }
+    .btn-delete-confirm:hover { background: #c0393c; box-shadow: 0 0 12px rgba(237,66,69,0.4); }
 
     @media (max-width: 560px) {
       #emoji-picker {
-        width: calc(100vw - 24px);
-        left: 50%;
+        width: calc(100vw - 24px); left: 50%;
         transform: translateX(-50%) translateY(8px) scale(0.97);
       }
-      #emoji-picker.open {
-        transform: translateX(-50%) translateY(0) scale(1);
-      }
-    }
-
-    @media (max-width: 560px) {
+      #emoji-picker.open { transform: translateX(-50%) translateY(0) scale(1); }
       .sidebar { display: none; }
     }
   </style>
@@ -537,7 +414,6 @@
       <div id="typing-indicator"></div>
       <div class="chat-input-area">
         <div class="input-box">
-          <!-- Emoji Picker Popup (anchored inside input-box) -->
           <div id="emoji-picker" role="dialog" aria-label="Emoji picker">
             <div class="ep-search-wrap">
               <input class="ep-search" id="ep-search" type="text" placeholder="Search emoji…" autocomplete="off" />
@@ -549,7 +425,6 @@
 
           <textarea id="msg-input" rows="1" placeholder="Message #general" maxlength="2500"></textarea>
           <span id="char-counter">2500</span>
-
           <button id="emoji-btn" title="Emoji" aria-label="Open emoji picker" aria-expanded="false">😊</button>
           <button id="send-btn">
             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -566,6 +441,18 @@
   </div>
 </div>
 
+<!-- DELETE CONFIRMATION MODAL -->
+<div id="delete-modal-overlay">
+  <div id="delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <h3 id="delete-modal-title">Delete Message</h3>
+    <p>Are you sure you want to delete this message? This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="modal-cancel-btn">Cancel</button>
+      <button class="btn-delete-confirm" id="modal-confirm-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io();
@@ -575,10 +462,9 @@
   const typingUsers = {};
   let typingTimeout;
 
-  // Track last author to group messages Discord-style
-  let lastAuthor = null;
+  let lastAuthor    = null;
   let lastTimestamp = 0;
-  const GROUP_THRESHOLD = 7 * 60 * 1000; // 7 minutes
+  const GROUP_THRESHOLD = 7 * 60 * 1000;
 
   const joinScreen    = document.getElementById('join-screen');
   const chatScreen    = document.getElementById('chat-screen');
@@ -593,6 +479,11 @@
   const typingEl      = document.getElementById('typing-indicator');
   const charCounter   = document.getElementById('char-counter');
 
+  const modalOverlay  = document.getElementById('delete-modal-overlay');
+  const modalCancel   = document.getElementById('modal-cancel-btn');
+  const modalConfirm  = document.getElementById('modal-confirm-btn');
+  let   pendingDeleteId = null;
+
   // ── JOIN ──────────────────────────────────────────────
   function joinRoom() {
     const name = usernameInput.value.trim();
@@ -603,7 +494,6 @@
     chatScreen.classList.add('active');
     msgInput.focus();
   }
-
   joinBtn.addEventListener('click', joinRoom);
   usernameInput.addEventListener('keydown', e => { if (e.key === 'Enter') joinRoom(); });
 
@@ -612,11 +502,10 @@
     const left = MAX_CHARS - msgInput.value.length;
     charCounter.textContent = left.toLocaleString();
     charCounter.className = left <= 0 ? 'danger' : left <= 200 ? 'warn' : '';
-    // Show counter only near limit
     charCounter.style.display = left <= 500 ? 'block' : 'none';
   }
 
-  // ── SEND MESSAGE ──────────────────────────────────────
+  // ── SEND ──────────────────────────────────────────────
   function sendMessage() {
     const text = msgInput.value.trim();
     if (!text || text.length > MAX_CHARS) return;
@@ -626,89 +515,105 @@
     updateCounter();
     socket.emit('chat:typing', false);
   }
-
   sendBtn.addEventListener('click', sendMessage);
   msgInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
-
-  // Auto-resize + typing + counter
   msgInput.addEventListener('input', () => {
     msgInput.style.height = 'auto';
     msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + 'px';
     updateCounter();
-
     socket.emit('chat:typing', true);
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => socket.emit('chat:typing', false), 1500);
   });
 
-  // ── RENDER HELPERS ────────────────────────────────────
+  // ── HELPERS ───────────────────────────────────────────
   function formatTime(ts) {
-    const d = new Date(ts);
-    const now = new Date();
-    const isToday = d.toDateString() === now.toDateString();
+    const d = new Date(ts), now = new Date();
     const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    return isToday ? `Today at ${time}` : d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' at ' + time;
+    return d.toDateString() === now.toDateString()
+      ? 'Today at ' + time
+      : d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' at ' + time;
   }
-
-
-  // ── AVATAR HELPERS (getInitials + avatarColor defined below) ─────────────
-
-  // Generate up to 2 initials from a username:
-  // "Labib Ahmed" → "LA", "cosmicray" → "CO", "x" → "X"
   function getInitials(name) {
-    const parts = name.trim().split(/[\s_\-\.]+/).filter(Boolean);
-    if (parts.length >= 2) {
-      return (parts[0][0] + parts[1][0]).toUpperCase();
-    }
-    // Single word: take first two chars if available
-    return name.slice(0, 2).toUpperCase();
+    const p = name.trim().split(/[\s_\-\.]+/).filter(Boolean);
+    return p.length >= 2 ? (p[0][0] + p[1][0]).toUpperCase() : name.slice(0, 2).toUpperCase();
   }
-
-  // Deterministic color from username — same user always gets same color
   const AVATAR_COLORS = [
-    '#5865f2', // indigo
-    '#23a55a', // green
-    '#ed4245', // red
-    '#f0b232', // amber
-    '#eb459e', // pink
-    '#0ea5e9', // sky
-    '#a855f7', // purple
-    '#14b8a6', // teal
-    '#f97316', // orange
-    '#06b6d4', // cyan
+    '#5865f2','#23a55a','#ed4245','#f0b232','#eb459e',
+    '#0ea5e9','#a855f7','#14b8a6','#f97316','#06b6d4',
   ];
   function avatarColor(name) {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = (hash * 31 + name.charCodeAt(i)) & 0xffff;
-    }
-    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+    let h = 0;
+    for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffff;
+    return AVATAR_COLORS[h % AVATAR_COLORS.length];
   }
 
-  function appendMessage({ username, text, timestamp }, type = 'other') {
+  // ── DELETE MODAL ──────────────────────────────────────
+  function openDeleteModal(messageId) {
+    pendingDeleteId = messageId;
+    modalOverlay.classList.add('open');
+    modalConfirm.focus();
+  }
+  function closeDeleteModal() {
+    pendingDeleteId = null;
+    modalOverlay.classList.remove('open');
+  }
+  modalCancel.addEventListener('click', closeDeleteModal);
+  modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeDeleteModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeDeleteModal();
+  });
+  modalConfirm.addEventListener('click', () => {
+    if (!pendingDeleteId) return;
+    const el = document.querySelector('[data-msg-id="' + pendingDeleteId + '"]');
+    if (el) el.classList.add('deleting');
+    socket.emit('chat:delete', pendingDeleteId);
+    closeDeleteModal();
+  });
+
+  // ── APPLY DELETION ────────────────────────────────────
+  function applyDeletion(messageId) {
+    const el = document.querySelector('[data-msg-id="' + messageId + '"]');
+    if (!el) return;
+    const textDiv = el.querySelector('.msg-text');
+    if (textDiv) { textDiv.textContent = '🗑️ Message deleted'; textDiv.classList.add('deleted'); }
+    const btn = el.querySelector('.msg-delete-btn');
+    if (btn) btn.remove();
+    el.classList.remove('deleting');
+  }
+
+  // ── TRASH ICON SVG ────────────────────────────────────
+  const TRASH_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
+
+  // ── APPEND MESSAGE ────────────────────────────────────
+  function appendMessage(msg, type = 'other') {
     if (type === 'system') {
       const div = document.createElement('div');
       div.className = 'msg-system';
-      div.textContent = text;
+      div.textContent = msg.text;
       messages.appendChild(div);
       lastAuthor = null;
       messages.scrollTop = messages.scrollHeight;
       return;
     }
 
+    const { id, username, text, timestamp } = msg;
     const ts = timestamp || Date.now();
     const sameAuthor = (username === lastAuthor) && (ts - lastTimestamp < GROUP_THRESHOLD);
-    lastAuthor = username;
+    lastAuthor    = username;
     lastTimestamp = ts;
 
-    const group = document.createElement('div');
-    group.className = `msg-group ${type}${!sameAuthor ? ' first-in-group' : ''}`;
+    const isOwn = (type === 'own');
 
+    const group = document.createElement('div');
+    group.className = 'msg-group ' + type + (!sameAuthor ? ' first-in-group' : '');
+    if (id) group.dataset.msgId = id;   // ← unique ID on the element
+
+    // Avatar column
     const avatarCol = document.createElement('div');
     avatarCol.className = 'msg-avatar-col';
-
     if (!sameAuthor) {
       const av = document.createElement('div');
       av.className = 'msg-avatar';
@@ -717,21 +622,48 @@
       avatarCol.appendChild(av);
     }
 
+    // Content column
     const content = document.createElement('div');
     content.className = 'msg-content';
 
     if (!sameAuthor) {
       const meta = document.createElement('div');
       meta.className = 'msg-meta';
-      meta.innerHTML = `<span class="msg-author">${username}</span><span class="msg-time">${formatTime(ts)}</span>`;
+      const author = document.createElement('span');
+      author.className = 'msg-author';
+      author.textContent = username;
+      const time = document.createElement('span');
+      time.className = 'msg-time';
+      time.textContent = formatTime(ts);
+      meta.appendChild(author);
+      meta.appendChild(time);
       content.appendChild(meta);
     }
+
+    // Body: text + optional delete button
+    const body = document.createElement('div');
+    body.className = 'msg-body';
 
     const textDiv = document.createElement('div');
     textDiv.className = 'msg-text';
     textDiv.textContent = text;
-    content.appendChild(textDiv);
+    body.appendChild(textDiv);
 
+    // Only inject delete button for messages sent by this user
+    if (isOwn && id) {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'msg-delete-btn';
+      delBtn.title = 'Delete message';
+      delBtn.setAttribute('aria-label', 'Delete message');
+      delBtn.innerHTML = TRASH_SVG;
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDeleteModal(id);
+      });
+      body.appendChild(delBtn);
+    }
+
+    content.appendChild(body);
     group.appendChild(avatarCol);
     group.appendChild(content);
     messages.appendChild(group);
@@ -748,39 +680,36 @@
     appendMessage({ text, timestamp }, 'system');
   });
 
+  // NEW: receive deletion broadcast from server
+  socket.on('chat:deleted', ({ id }) => {
+    applyDeletion(id);
+  });
+
   socket.on('users:update', (users) => {
-    onlineCount.textContent = `${users.length} online`;
+    onlineCount.textContent = users.length + ' online';
     if (onlineNum) onlineNum.textContent = users.length;
     userList.innerHTML = users.map(u =>
-      `<div class="user-item">
-        <div class="user-avatar" style="background:${avatarColor(u)}">${getInitials(u)}</div>
-        <div class="user-name">${u}</div>
-      </div>`
+      '<div class="user-item">' +
+        '<div class="user-avatar" style="background:' + avatarColor(u) + '">' + getInitials(u) + '</div>' +
+        '<div class="user-name">' + u + '</div>' +
+      '</div>'
     ).join('');
   });
 
   socket.on('chat:typing', ({ username, isTyping }) => {
-    if (isTyping) {
-      typingUsers[username] = true;
-    } else {
-      delete typingUsers[username];
-    }
+    if (isTyping) { typingUsers[username] = true; }
+    else          { delete typingUsers[username]; }
     const names = Object.keys(typingUsers).filter(n => n !== myUsername);
-    if (names.length === 0) { typingEl.textContent = ''; }
-    else if (names.length === 1) { typingEl.textContent = `${names[0]} is typing…`; }
-    else { typingEl.textContent = `${names.slice(0,-1).join(', ')} & ${names.at(-1)} are typing…`; }
+    if (names.length === 0)      typingEl.textContent = '';
+    else if (names.length === 1) typingEl.textContent = names[0] + ' is typing…';
+    else                         typingEl.textContent = names.slice(0,-1).join(', ') + ' & ' + names.at(-1) + ' are typing…';
   });
 
-  // Hide counter initially
   updateCounter();
 
   // ── EMOJI PICKER ──────────────────────────────────────
-
   const EMOJI_DATA = [
-    {
-      id: 'recent', label: '🕐', title: 'Recently Used',
-      emojis: [] // populated dynamically
-    },
+    { id: 'recent', label: '🕐', title: 'Recently Used', emojis: [] },
     {
       id: 'smileys', label: '😀', title: 'Smileys & Emotion',
       emojis: ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙',
@@ -842,14 +771,8 @@
 
   const RECENT_KEY = 'livechat_recent_emojis';
   const MAX_RECENT = 24;
-
-  function loadRecent() {
-    try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; }
-    catch { return []; }
-  }
-  function saveRecent(list) {
-    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch {}
-  }
+  function loadRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch { return []; } }
+  function saveRecent(list) { try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch {} }
   function addToRecent(emoji) {
     let list = loadRecent().filter(e => e !== emoji);
     list.unshift(emoji);
@@ -858,7 +781,6 @@
     EMOJI_DATA[0].emojis = list;
   }
 
-  // DOM refs
   const emojiBtn    = document.getElementById('emoji-btn');
   const emojiPicker = document.getElementById('emoji-picker');
   const epTabs      = document.getElementById('ep-tabs');
@@ -867,10 +789,8 @@
   const epFooter    = document.getElementById('ep-footer');
 
   let pickerOpen = false;
-  let activeTab = 'smileys';
-  let hoverPreview = null;
+  let activeTab  = 'smileys';
 
-  // ── Build tabs ────────────────────────────────────────
   function buildTabs() {
     epTabs.innerHTML = '';
     EMOJI_DATA.forEach(cat => {
@@ -879,122 +799,61 @@
       btn.textContent = cat.label;
       btn.title = cat.title;
       btn.dataset.cat = cat.id;
-      btn.addEventListener('click', () => {
-        epSearch.value = '';
-        activeTab = cat.id;
-        buildTabs();
-        renderGrid();
-      });
+      btn.addEventListener('click', () => { epSearch.value = ''; activeTab = cat.id; buildTabs(); renderGrid(); });
       epTabs.appendChild(btn);
     });
   }
 
-  // ── Render grid ───────────────────────────────────────
   function renderGrid(filter = '') {
     epGridWrap.innerHTML = '';
-
-    const term = filter.toLowerCase().trim();
-
-    if (term) {
-      // Search across all categories
-      const all = EMOJI_DATA.slice(1).flatMap(c => c.emojis);
-      const results = all.filter(e => {
-        // basic name lookup via codepoint description — fallback to showing all
-        return true; // with a real emoji library you'd filter by name
-      });
-      // Simple approach: show everything when searching (all emojis) filtered by unicode name
-      // For a no-library solution we just show the full set filtered visually by term match
-      renderSection('Results', all, term);
-      return;
-    }
-
+    if (filter.trim()) { renderSection('Results', EMOJI_DATA.slice(1).flatMap(c => c.emojis)); return; }
     if (activeTab === 'recent') {
-      const recent = loadRecent();
-      if (recent.length === 0) {
-        epGridWrap.innerHTML = '<div class="ep-empty">No recently used emojis yet</div>';
-        return;
-      }
-      renderSection('Recently Used', recent);
-      return;
+      const r = loadRecent();
+      if (!r.length) { epGridWrap.innerHTML = '<div class="ep-empty">No recently used emojis yet</div>'; return; }
+      renderSection('Recently Used', r); return;
     }
-
     const cat = EMOJI_DATA.find(c => c.id === activeTab);
     if (cat) renderSection(cat.title, cat.emojis);
   }
 
-  function renderSection(label, emojis, filter = '') {
-    const filtered = filter
-      ? emojis.filter(e => {
-          // We'll match by looking at the emoji's unicode name via a rough codepoint check
-          // Without a library, just return all (users type emoji name in search)
-          return true;
-        })
-      : emojis;
-
-    if (filtered.length === 0) {
-      epGridWrap.innerHTML = '<div class="ep-empty">No emojis found</div>';
-      return;
-    }
-
-    const labelEl = document.createElement('div');
-    labelEl.className = 'ep-section-label';
-    labelEl.textContent = label;
-    epGridWrap.appendChild(labelEl);
-
+  function renderSection(label, emojis) {
+    if (!emojis.length) { epGridWrap.innerHTML = '<div class="ep-empty">No emojis found</div>'; return; }
+    const lbl = document.createElement('div');
+    lbl.className = 'ep-section-label';
+    lbl.textContent = label;
+    epGridWrap.appendChild(lbl);
     const grid = document.createElement('div');
     grid.className = 'ep-grid';
-
-    filtered.forEach(emoji => {
+    emojis.forEach(emoji => {
       const btn = document.createElement('button');
       btn.className = 'ep-emoji';
       btn.textContent = emoji;
-      btn.addEventListener('mouseenter', () => {
-        epFooter.innerHTML = `<span class="ep-footer-emoji">${emoji}</span><span>${emojiName(emoji)}</span>`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        epFooter.innerHTML = '<span>— pick an emoji</span>';
-      });
+      btn.addEventListener('mouseenter', () => { epFooter.innerHTML = '<span class="ep-footer-emoji">' + emoji + '</span><span>' + emoji.codePointAt(0).toString(16).toUpperCase() + '</span>'; });
+      btn.addEventListener('mouseleave', () => { epFooter.innerHTML = '<span>— pick an emoji</span>'; });
       btn.addEventListener('click', () => insertEmoji(emoji));
       grid.appendChild(btn);
     });
-
     epGridWrap.appendChild(grid);
   }
 
-  function emojiName(emoji) {
-    try {
-      return emoji.codePointAt(0).toString(16).toUpperCase();
-    } catch { return ''; }
-  }
-
-  // ── Insert emoji at cursor ─────────────────────────────
   function insertEmoji(emoji) {
-    const start = msgInput.selectionStart;
-    const end   = msgInput.selectionEnd;
-    const val   = msgInput.value;
+    const start = msgInput.selectionStart, end = msgInput.selectionEnd, val = msgInput.value;
     msgInput.value = val.slice(0, start) + emoji + val.slice(end);
-    // Restore cursor after inserted emoji
-    const newPos = start + emoji.length;
-    msgInput.setSelectionRange(newPos, newPos);
+    const np = start + emoji.length;
+    msgInput.setSelectionRange(np, np);
     msgInput.focus();
-    // Trigger resize + counter
     msgInput.dispatchEvent(new Event('input'));
     addToRecent(emoji);
   }
 
-  // ── Open / Close ─────────────────────────────────────
   function openPicker() {
     EMOJI_DATA[0].emojis = loadRecent();
-    buildTabs();
-    renderGrid();
-    pickerOpen = true;
+    buildTabs(); renderGrid(); pickerOpen = true;
     emojiPicker.classList.add('open');
     emojiBtn.classList.add('active');
     emojiBtn.setAttribute('aria-expanded', 'true');
-    // Focus search after animation
     requestAnimationFrame(() => epSearch.focus());
   }
-
   function closePicker() {
     pickerOpen = false;
     emojiPicker.classList.remove('open');
@@ -1003,33 +862,11 @@
     epSearch.value = '';
   }
 
-  emojiBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    pickerOpen ? closePicker() : openPicker();
-  });
-
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (pickerOpen && !emojiPicker.contains(e.target) && e.target !== emojiBtn) {
-      closePicker();
-    }
-  });
-
-  // Esc to close
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && pickerOpen) {
-      closePicker();
-      msgInput.focus();
-    }
-  });
-
-  // Search handler
-  epSearch.addEventListener('input', () => {
-    renderGrid(epSearch.value);
-  });
-
-  // Stop picker clicks from bubbling to document (prevents immediate close)
-  emojiPicker.addEventListener('click', (e) => e.stopPropagation());
+  emojiBtn.addEventListener('click', e => { e.stopPropagation(); pickerOpen ? closePicker() : openPicker(); });
+  document.addEventListener('click', e => { if (pickerOpen && !emojiPicker.contains(e.target) && e.target !== emojiBtn) closePicker(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && pickerOpen) { closePicker(); msgInput.focus(); } });
+  epSearch.addEventListener('input', () => renderGrid(epSearch.value));
+  emojiPicker.addEventListener('click', e => e.stopPropagation());
 </script>
 </body>
 </html>
